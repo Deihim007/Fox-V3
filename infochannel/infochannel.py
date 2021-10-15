@@ -9,7 +9,7 @@ from redbot.core.bot import Red
 from redbot.core.commands import Cog
 
 # 10 minutes. Rate limit is 2 per 10, so 1 per 6 is safe.
-RATE_LIMIT_DELAY = 60 * 6  # If you're willing to risk rate limiting, you can decrease the delay
+RATE_LIMIT_DELAY = 60 * 1  # If you're willing to risk rate limiting, you can decrease the delay
 
 log = logging.getLogger("red.fox_v3.infochannel")
 
