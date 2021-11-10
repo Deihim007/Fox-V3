@@ -1,5 +1,7 @@
 import asyncio
 import logging
+import jdatetime
+from datetime import datetime
 from collections import defaultdict
 from typing import Dict, Optional, Union
 
@@ -30,6 +32,11 @@ async def get_channel_counts(category, guild):
     human_num = members - bot_num
     # count amount of premium subs/nitro subs.
     boosters = guild.premium_subscription_count
+    # Hijri date
+    hijri_date = jdatetime.datetime.now().strftime("%Y/%m/%d")
+    # Gregorian date
+    gregorian_date = datetime.now().strftime("%Y/%m/%d")
+
     return {
         "members": members,
         "humans": human_num,
@@ -39,6 +46,8 @@ async def get_channel_counts(category, guild):
         "channels": channels_num,
         "online": online_num,
         "offline": offline_num,
+        "hijri":  hijri_date,
+        "gregorian":  gregorian_date,
     }
 
 
@@ -67,6 +76,8 @@ class InfoChannel(Cog):
             "channels": "Channels: {count}",
             "online": "Online: {count}",
             "offline": "Offline: {count}",
+            "hijri": "Hijri: {count}",
+            "gregorian": "Gregorian: {count}",
         }
 
         default_channel_ids = {k: None for k in self.default_channel_names}
@@ -180,6 +191,8 @@ class InfoChannel(Cog):
         - `channels`: Total number of channels excluding infochannels,
         - `online`: Total online members,
         - `offline`: Total offline members,
+        - `hijri`: Hijri date,
+        - `gregorian`: Gregorian date,
         """
         guild = ctx.guild
         if channel_type not in self.default_channel_names.keys():
@@ -235,6 +248,8 @@ class InfoChannel(Cog):
         - `channels`: Total number of channels excluding infochannels
         - `online`: Total online members
         - `offline`: Total offline members
+        - `hijri`: Hijri date,
+        - `gregorian`: Gregorian date,
 
         Warning: This command counts against the channel update rate limit and may be queued.
         """
@@ -453,6 +468,8 @@ class InfoChannel(Cog):
                 channels=True,
                 online=True,
                 offline=True,
+                hijri=True,
+                gregorian=True,
                 extra_roles=set(guild.roles),
             )
 
