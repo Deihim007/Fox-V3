@@ -26,10 +26,10 @@ async def get_channel_counts(category, guild):
     channels_num = len(guild.channels) - len(category.voice_channels) - len(guild.categories)
     # Gets all counts of members
     members = guild.member_count
-    offline_num = len(list(filter(lambda m: m.status is discord.Status.offline, guild.members)))
-    online_num = members - offline_num
     # Gets count of actual users
     human_num = members - bot_num
+    offline_num = len(list(filter(lambda m: m.status is discord.Status.offline, guild.members)))
+    online_num = human_num - offline_num
     # count amount of premium subs/nitro subs.
     boosters = guild.premium_subscription_count
     # Hijri date
